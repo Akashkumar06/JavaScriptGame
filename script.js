@@ -1,42 +1,24 @@
 var scores,roundScore,activePlayer,gamePlaying;
 
 init();
-var lastData;
-var notActive;
 document.querySelector('.btn--roll').addEventListener('click',function(){
     if(gamePlaying){
 
 
-        var dice1=Math.floor(Math.random()*6)+1;
-        var dice2=Math.floor(Math.random()*6)+1;
-        document.getElementById('dice-1').style.display='block';
-        document.getElementById('dice-2').style.display='block';
-       
-        document.getElementById('dice-1').src='imges/dice-'+dice1+'.png';
-        document.getElementById('dice-2').src='imges/dice-'+dice2+'.png';
-        if(dice1!==1 && dice2!==1){
-            roundScore+=dice1+dice2;
+        var dice=Math.floor(Math.random()*6)+1;
+        var diceDom=document.querySelector('.dice');
+        diceDom.style.display='block';
+        diceDom.src='imges/dice-'+dice+'.png';
+        if(dice!==1){
+            roundScore+=dice;
             document.getElementById('current--'+activePlayer).textContent=roundScore;
 
 
         }else{
             nextPlayer();
         }
+
     }
-        //Logic for Double six 
-    //     if(dice===6 && lastData===6){
-    //         document.querySelector('#score--'+activePlayer).textContent='0';
-    //     }else if(dice!==1){
-    //         roundScore+=dice;
-    //         document.getElementById('current--'+activePlayer).textContent=roundScore;
-
-
-    //     }else{
-    //         nextPlayer();
-    //     }
-    //     lastData=dice;
-
-    // }
 });
 document.querySelector('.btn--hold').addEventListener('click',function(){
     if(gamePlaying){
@@ -44,28 +26,12 @@ document.querySelector('.btn--hold').addEventListener('click',function(){
         scores[activePlayer]+=roundScore;
 document.querySelector('#score--'+activePlayer).textContent=scores[activePlayer];
 //Chek the player who won the game
-var input=document.querySelector('.final-score').value;
-//Undefined ,0 null or "" are coerced to false
-//anything else in coerced to true
-if(input){
-    var winningScore=input;
-}else{
-    winningScore=100;
-}
 
-if(scores[activePlayer]>=winningScore){
-    var notActive;
-    if(activePlayer===1){
-        notActive= 0  }else{
-        notActive=1
-    }
-    document.querySelector('#name--'+activePlayer).textContent='Winner :)';
-    document.querySelector('#name--'+notActive).textContent='Losser :(';
-    document.getElementById('dice-1').style.display='none';
-    document.getElementById('dice-2').style.display='none';
+if(scores[activePlayer]>=30){
+    document.querySelector('#name--'+activePlayer).textContent='Winner';
+    document.querySelector('.dice').style.display='none';
     //document.querySelector('.player--'+activePlayer).classList.add('player--active');
     document.querySelector('.player--'+activePlayer).classList.add('player--winner');
-    document.querySelector('.player--'+notActive).classList.add('player--loser');
 
     //document.querySelector('.player--'+activePlayer).classList.remove('player--active');
     gamePlaying=false;
@@ -76,16 +42,14 @@ else{
 }
 });
 function nextPlayer(){
-activePlayer===0? activePlayer = 1 : activePlayer=0;
-
+activePlayer===0? activePlayer = 1: activePlayer=0;
 roundScore=0;
 
 document.getElementById('current--0').textContent='0';
 document.getElementById('current--1').textContent='0';
 document.querySelector('.player--0').classList.toggle('player--active');
 document.querySelector('.player--1').classList.toggle('player--active');
-document.getElementById('dice-1').style.display='none';
-document.getElementById('dice-2').style.display='none';
+document.querySelector('.dice').style.display='none';
 
 
 
@@ -96,12 +60,10 @@ function init(){
 
     scores=[0,0];
     activePlayer=0;
-    notActive=1;
     roundScore=0;
     gamePlaying=true;
 
-    document.getElementById('dice-1').style.display='none';
-    document.getElementById('dice-2').style.display='none';
+    document.querySelector('.dice').style.display='none';
     document.getElementById('score--0').textContent='0';
     document.getElementById('score--1').textContent='0';
     document.getElementById('current--0').textContent='0';
@@ -112,8 +74,6 @@ function init(){
     document.querySelector('.player--1').classList.remove('player--active');
     document.querySelector('.player--0').classList.remove('player--winner');
     document.querySelector('.player--1').classList.remove('player--winner');
-    document.querySelector('.player--0').classList.remove('player--loser');
-    document.querySelector('.player--1').classList.remove('player--loser');
     document.querySelector('.player--1').classList.add('player--active');
 
 

@@ -35,6 +35,32 @@ main {
   overflow: hidden;
   display: flex;
 }
+.final-score{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 520px;
+  color: #555;
+  font-size: 18px;
+  font-family: 'Lato';
+  text-align: center;
+  padding: 10px;
+  width: 160px;
+  text-transform: uppercase;
+  
+}
+.final-score:focus{
+  outline: none;
+
+}
+#dice-1{
+  top: 120px;
+
+}
+#dice-2{
+  top:  250px;
+  
+}
 
 .player {
   flex: 50%;
@@ -159,10 +185,17 @@ main {
 }
 
 .player--winner {
-  background-color: #2f2f2f;
+  background-color:#24f7e9 ;
+}
+.player--loser {
+  background-color:  #2f2f2f;
 }
 
 .player--winner .name {
   font-weight: 700;
-  color: #c7365f;
+  color: #260058;
+}
+.player--loser .name {
+  font-weight: 700;
+  color: #d12304;
 }
